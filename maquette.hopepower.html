@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hope Power | L'événement qui transforme l'espoir en action</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --orange: #FF4500; /* Orange plus vif pour le web */
+            --magenta: #E8007D;
+            --black: #111111;
+            --white: #FFFFFF;
+            --gray: #F4F4F4;
+            --dark-gray: #222222;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--black); 
+            color: var(--white); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+        }
+
+        h1, h2, h3 { 
+            font-family: 'Montserrat', sans-serif; 
+            text-transform: uppercase; 
+            font-weight: 900; 
+            letter-spacing: -1.5px; 
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.3rem; color: var(--white); text-decoration: none; z-index: 1001; }
+        .logo span.o { color: var(--orange); }
+        .logo span.star { color: var(--magenta); }
+
+        .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
+        .nav-links a { 
+            color: var(--white); text-decoration: none; font-size: 0.85rem; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 1px; transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--orange); }
+
+        .btn-cta {
+            background: var(--orange); color: var(--white); padding: 12px 24px;
+            text-decoration: none; font-weight: 700; font-size: 0.8rem;
+            text-transform: uppercase; transition: var(--transition); border: none; cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-cta:hover { background: var(--magenta); transform: scale(1.05); }
+
+        .burger { display: none; cursor: pointer; z-index: 1001; }
+        .burger div { width: 25px; height: 3px; background-color: var(--white); margin: 5px; transition: all 0.3s ease; }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed; right: 0px; height: 100vh; top: 0px;
+                background-color: var(--black); flex-direction: column; align-items: center; justify-content: center;
+                width: 70%; transform: translateX(100%); transition: transform 0.5s ease-in;
+            }
+            .nav-links.nav-active { transform: translateX(0%); }
+            .burger { display: block; }
+        }
+
+        /* --- SECTION HERO (Photo Claire + Orange Vif) --- */
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 5%;
+            /* Filtre très léger pour que l'image soit bien visible */
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), 
+                        url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80');
+            background-size: cover; background-position: center; position: relative;
+        }
+        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(transparent, var(--black)); }
+        
+        .hero-content { z-index: 2; max-width: 1100px; }
+        
+        .hero h1 { 
+            font-size: clamp(2.5rem, 8vw, 5.5rem); 
+            line-height: 1; 
+            margin-bottom: 40px; 
+            color: var(--orange); 
+            /* Ombre portée pour détacher le texte de la photo */
+            text-shadow: 2px 4px 20px rgba(0,0,0,0.9);
+        }
+
+        /* --- SECTION : LE MOUVEMENT --- */
+        .about { padding: 120px 5% 80px; background: var(--white); color: var(--black); }
+        .section-tag { color: var(--magenta); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 10px; letter-spacing: 2px; font-size: 0.9rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
+        .card { padding: 40px; background: var(--gray); border-left: 5px solid var(--orange); transition: var(--transition); }
+        .card:nth-child(2) { border-color: var(--magenta); }
+        .card h3 { margin-bottom: 15px; }
+
+        /* --- SECTION : L'ÉVÉNEMENT 2025 --- */
+        .history { padding: 100px 5%; background: var(--black); }
+        .event-split { display: flex; flex-wrap: wrap; gap: 50px; align-items: center; }
+        .event-text { flex: 1; min-width: 300px; }
+        .event-visuals { flex: 1; min-width: 300px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .img-box { 
+            background: var(--dark-gray); 
+            aspect-ratio: 4/5; 
+            background-size: cover; 
+            background-position: center; 
+            border: 1px solid #333; 
+            transition: var(--transition);
+        }
+        .img-box:hover { border-color: var(--orange); transform: scale(1.02); }
+
+        /* --- SECTION : TEASING --- */
+        .teaser { padding: 120px 5%; background: #0a0a0a; text-align: center; }
+        .waitlist-form { max-width: 500px; margin: 40px auto; display: flex; gap: 10px; }
+        .waitlist-form input { flex: 1; padding: 15px; background: #222; border: 1px solid #444; color: white; outline: none; border-radius: 0; }
+
+        /* --- CTA FINAL --- */
+        .final-cta { padding: 150px 5%; text-align: center; background: var(--orange); color: var(--white); }
+        .final-cta h2 { font-size: clamp(2rem, 6vw, 4rem); margin-bottom: 40px; }
+
+        /* --- RÉSEAUX SOCIAUX --- */
+        .social-bar {
+            background: #0a0a0a;
+            padding: 50px 5% 30px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            color: var(--white);
+            font-size: 2rem;
+            transition: var(--transition);
+        }
+        .social-icons a:hover {
+            color: var(--orange);
+            transform: translateY(-8px);
+        }
+
+        footer { padding: 20px 5% 40px; text-align: center; font-size: 0.8rem; color: #666; background: #0a0a0a; }
+        
+        .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+        .toggle .line2 { opacity: 0; }
+        .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#" class="logo">H<span class="o">O</span>PE P<span class="star">*</span>WER</a>
+        <ul class="nav-links">
+            <li><a href="#mouvement">Le Mouvement</a></li>
+            <li><a href="#2025">L'Événement 2025</a></li>
+            <li><a href="#prochaine">Prochaine Édition</a></li>
+            <li><a href="#engager">S'engager</a></li>
+            <li><a href="#engager" class="btn-cta">Agir maintenant</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- HEADER HERO -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="reveal">L'événement qui transforme l'espoir en action</h1>
+            <a href="#prochaine" class="btn-cta reveal" style="padding: 18px 45px; font-size: 1rem;">Rejoindre l'aventure</a>
+        </div>
+    </header>
+
+    <!-- SECTION : LE MOUVEMENT -->
+    <section class="about" id="mouvement">
+        <span class="section-tag reveal">Notre Mission</span>
+        <h2 class="reveal" style="font-size: 2.5rem; margin-bottom: 20px;">Le Média de l'Espoir</h2>
+        <p class="reveal" style="max-width: 800px; font-size: 1.1rem;">Hope Power est le mouvement citoyen de l'ONG <strong>Le Projet Imagine</strong>.</p>
+        <div class="grid-3">
+            <div class="card reveal"><h3>Pourquoi ?</h3><p>Pour transformer l'anxiété face aux crises en une dynamique positive.</p></div>
+            <div class="card reveal"><h3>Comment ?</h3><p>En créant des expériences immersives où l'art devient un levier d'engagement.</p></div>
+            <div class="card reveal"><h3>Quoi ?</h3><p>Des événements d'envergure et un média qui raconte les passages à l'acte.</p></div>
+        </div>
+    </section>
+
+    <!-- SECTION : L'ÉVÉNEMENT 2025 (PHOTOS) -->
+    <section class="history" id="2025">
+        <div class="event-split">
+            <div class="event-visuals">
+                <div class="img-box reveal" style="background-image:url('images/francois-regis-salefran.jpg');"></div>
+                <div class="img-box reveal" style="margin-top: 40px; background-image:url('images/hq720.jpg');"></div>
+                <div class="img-box reveal" style="background-image:url('images/leila-calvaruso.jpg');"></div>
+                <div class="img-box reveal" style="margin-top: 40px; display: flex; align-items: center; justify-content: center; background: var(--dark-gray); color: var(--orange); font-weight: 900; font-size: 2rem;">2025</div>
+            </div>
+            <div class="event-text">
+                <span class="section-tag reveal">Flashback : Folies Bergère</span>
+                <h2 class="reveal" style="font-size: 2.5rem; color: var(--white);">Une édition historique</h2>
+                <p class="reveal" style="margin-top: 20px; color: #aaa;">En décembre 2025, nous avons célébré les 15 ans de l'ONG avec un concert caritatif exceptionnel réunissant 1 600 spectateurs.</p>
+                <p class="reveal" style="margin-top: 15px; color: #fff; font-weight: bold;">AVEC : Chris Martin (Coldplay), MC Solaar, Fatoumata Diawara, Yoann Bourgeois...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCHAINE ÉDITION -->
+    <section class="teaser" id="prochaine">
+        <span class="section-tag reveal">Coming Soon</span>
+        <h2 class="reveal" style="font-size: 3rem;">L'aventure continue en 2026</h2>
+        <form class="waitlist-form reveal">
+            <input type="email" placeholder="Ton adresse email pour les actus" required>
+            <button type="submit" class="btn-cta">S'inscrire</button>
+        </form>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="final-cta" id="engager">
+        <h2 class="reveal"> L'espoir qui fait bouger les lignes</h2>
+        <div class="reveal">
+            <a href="#" class="btn-cta" style="background: var(--black); padding: 20px 40px; font-size: 1.2rem;">Faire un don ou agir</a>
+        </div>
+    </section>
+
+    <!-- BARRE RÉSEAUX SOCIAUX -->
+    <section class="social-bar">
+        <span class="section-tag">Suivez le mouvement</span>
+        <div class="social-icons">
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Hope Power by Le Projet Imagine. ONG reconnue d'intérêt général.</p>
+    </footer>
+
+    <script>
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            burger.classList.toggle('toggle');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('nav-active');
+                burger.classList.remove('toggle');
+            });
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
